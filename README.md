@@ -1,6 +1,6 @@
 # Zion Cursor Rules - 使用 Zion 后端构建自定义前端应用
 
-> **预构建的 Cursor 规则，用于开发基于 Zion.app 作为后端即服务（BaaS）的自定义前端应用**
+> **预构建的 Cursor 规则，用于开发基于 Zion（functorz.com）作为后端即服务（BaaS）的自定义前端应用**
 
 本仓库包含一套**生产就绪的 Cursor 规则**，使 AI Coding 工具（推荐Cursor）能够无缝集成 Zion 强大的后端基础设施。使用这些规则可以快速构建全栈应用，同时利用 Zion 的企业级 PostgreSQL 数据库、GraphQL API、Actionflow、AI Agent 等功能。
 
@@ -35,14 +35,14 @@
 ### 前置要求
 
 * Cursor 编辑器或任何支持 Cursor 规则的 AI 助手
-* Zion.app 账号和项目
+* Zion（functorz.com）账号和项目
 * GraphQL 和 TypeScript/JavaScript 的基础知识
 
 ### 步骤 1: 在 Zion 中构建后端
 
 在使用这些规则之前，你需要在 Zion 中创建后端基础设施：
 
-1. **注册** Zion.app 并创建新项目
+1. **注册** Zion（functorz.com）并创建新项目
 2. **设计数据库** - 创建表、定义关系、设置数据模型（可以是用Zion AI数据库助手）
 3. **构建后端逻辑** - 为复杂业务逻辑创建 Actionflow
 4. **配置集成** - 根据需要设置支付、AI Agent、第三方 API
