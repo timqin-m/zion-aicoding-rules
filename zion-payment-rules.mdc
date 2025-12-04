@@ -1,0 +1,123 @@
+---
+description: 使用 Zion 后端进行支付的方法（支付宝、微信支付等）
+alwaysApply: false
+---
+
+# 概述
+Zion 支持原生支付集成，使得基于 Zion 构建的项目的最终用户可以使用支付宝、微信支付等方式支付订单。
+
+## 支付宝支付
+
+### 前置条件
+在使用支付宝支付功能之前，必须在 Zion 编辑器内完成以下配置：
+1. **选择订单表**：项目的数据库中必须存在一个概念上的订单表，且必须在 Zion 编辑器内将该表绑定为项目的"订单表"设置。每个支付都必须关联一个订单 ID。
+2. **配置支付密钥和证书**：必须在 Zion 编辑器内配置支付宝的支付密钥和证书。
+
+完成上述配置后，才能通过 GraphQL API 调用支付宝支付接口。支付流程包括：创建订单、获取支付宝支付表单、跳转到支付宝支付页面完成支付、支付完成后根据返回 URL 返回并查询支付状态。
+
+### 订单创建
+每个项目的概念订单表都有自己的结构，不一定需要命名为 "order"，因为技术上每个项目的任何一个表都可以在 Zion 编辑器内绑定到项目的"订单表"设置。不过通常它们应该包含以下信息：订单属于哪个账户、订单金额是多少、订单包含哪些商品（通常通过 1:n 关系）。  
+
+在调用支付宝支付接口之前，必须先创建订单。订单创建的具体实现方式取决于项目的架构设计。关于订单创建的安全最佳实践，请参考 `zion-development-best-practices.mdc` 规则文件。
+
+订单创建后应该返回订单 ID（或订单标识符）以及支付所需的订单相关信息（如订单金额、主题/商品名称等）。
+
+### 创建支付宝支付
+前置条件：订单 ID（或订单标识符）、支付金额、主题（商品名称或订单描述）和返回 URL。订单 ID 和主题应该来自订单创建的返回值。  
+向项目的 GraphQL API 发送 mutation：  
+查询：
+```gql
+mutation AliPayTrade(
+  $outTradeNo: String!
+  $productCode: String!
+  $subject: String!
+  $totalAmount: Float!
+  $returnUrl: String!
+) {
+  alipayTrade(
+    bizContent: {
+      out_trade_no: $outTradeNo
+      product_code: $productCode
+      subject: $subject
+      total_amount: $totalAmount
+    }
+    returnUrl: $returnUrl
+  )
+}
+```
+
+变量示例：
+```json
+{
+  "outTradeNo": "{orderId}",
+  "productCode": "FAST_INSTANT_TRADE_PAY",
+  "subject": "{orderSubject}",
+  "totalAmount": 0.01,
+  "returnUrl": "{window.location.origin}"
+}
+```
+
+输出示例：
+```json
+{
+  "data": {
+    "alipayTrade": [
+      "<form>...</form>",
+      "{tradeNo}"
+    ]
+  }
+}
+```
+
+该 mutation 返回一个包含两个元素的数组：
+- 第一个元素：支付宝支付表单 HTML 字符串，需要提交该表单以跳转到支付宝支付页面
+- 第二个元素：支付宝交易号（可选，供参考）
+
+### 跳转到支付宝支付页面
+支付宝支付需要跳转到支付宝的支付页面。处理方式如下：
+- 解析返回的 HTML 表单字符串，提取表单的 action URL 和表单字段
+- 创建一个隐藏的表单，设置 action 为支付宝的支付 URL，method 为 POST
+- 将表单字段添加到表单中
+- 自动提交表单，跳转到支付宝支付页面
+- 用户完成支付后，支付宝会根据创建支付时传递的 `returnUrl` 参数，将用户重定向回指定的返回 URL
+
+实现示例：
+```typescript
+// 解析返回的 HTML 表单
+const parser = new DOMParser();
+const doc = parser.parseFromString(alipayFormHtml, 'text/html');
+const form = doc.querySelector('form');
+
+if (form) {
+  // 创建表单并提交
+  const submitForm = document.createElement('form');
+  submitForm.method = form.method || 'POST';
+  submitForm.action = form.action;
+  submitForm.style.display = 'none';
+  
+  // 复制所有表单字段
+  form.querySelectorAll('input').forEach(input => {
+    const newInput = document.createElement('input');
+    newInput.type = input.type;
+    newInput.name = input.name;
+    newInput.value = input.value;
+    submitForm.appendChild(newInput);
+  });
+  
+  document.body.appendChild(submitForm);
+  submitForm.submit();
+}
+```
+
+### 支付返回处理
+当用户完成支付后，支付宝会将用户重定向到创建支付时指定的 `returnUrl`。在该返回 URL 对应的页面中，需要：
+
+1. **检查支付状态**：立即查询订单状态，确认支付是否完成
+2. **处理支付结果**：根据订单状态显示相应的提示信息（支付成功、支付失败、支付取消等）
+3. **更新页面状态**：如果支付成功，更新订单状态，可能需要跳转到订单详情页或成功页面
+
+### 支付状态查询
+在返回 URL 页面中，使用订单 ID 查询订单状态，确认支付是否完成。查询订单状态的具体实现方式取决于项目的架构设计。查询应该返回订单状态信息，具体的状态值取决于项目的订单状态枚举或字符串值（例如："待支付"、"已支付"、"已过期"、"已取消"等）。
+
+### Webhook 处理
+支付宝可能会通过 webhook 向 Zion 项目的后端发送支付通知，相应的 actionflow 用于处理这些 webhook 请求。因此前端不需要特殊处理 webhook 处理器的逻辑。但是，由于 webhook 是异步过程，前端应该轮询支付状态或使用 GraphQL 订阅来监控订单状态变化。
