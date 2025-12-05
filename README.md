@@ -72,12 +72,12 @@
    - 认证后，可以设置当前项目上下文
 
 3. **MCP 服务器提供的工具**：
-   - `mcp_zion_set_current_working_directory` - 设置当前工作目录
-   - `mcp_zion_get_projects` - 列出所有项目
-   - `mcp_zion_set_current_project` - 设置当前项目
-   - `mcp_zion_get_current_project` - 获取当前项目上下文
-   - `mcp_zion_get_project_schema` - 获取项目 Schema
-   - `mcp_zion_reauth` - 重新进行 OAuth 认证
+   - `set_current_working_directory` - 设置当前工作目录
+   - `get_projects` - 列出所有项目
+   - `set_current_project` - 设置当前项目
+   - `get_current_project` - 获取当前项目上下文
+   - `get_project_schema` - 获取项目 Schema
+   - `reauth` - 重新进行 OAuth 认证
 
 ### 步骤 3: 复制规则到项目
 
