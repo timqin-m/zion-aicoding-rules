@@ -34,7 +34,7 @@
 
 ### 前置要求
 
-* Cursor 编辑器或任何支持 Cursor 规则的 AI 助手
+* Cursor 编辑器或任何支持 Cursor 规则的 AI Coding 工具
 * Zion（functorz.com）账号和项目
 * GraphQL 和 TypeScript/JavaScript 的基础知识
 
@@ -43,8 +43,8 @@
 在使用这些规则之前，你需要在 Zion 中创建后端基础设施：
 
 1. **注册** Zion（functorz.com）并创建新项目
-2. **设计数据库** - 创建表、定义关系、设置数据模型（可以是用Zion AI数据库助手）
-3. **构建后端逻辑** - 为复杂业务逻辑创建 Actionflow
+2. **设计数据库** - 创建表、定义关系、设置数据模型（可以使用 Zion AI 数据库助手）
+3. **构建后端逻辑** - 为复杂业务逻辑创建 Actionflow 
 4. **配置集成** - 根据需要设置支付、AI Agent、第三方 API
 ### 步骤 2: 配置 MCP 服务器
 
@@ -70,12 +70,14 @@
 2. **配置项目**：
    - 首次使用时，MCP 服务器会引导你完成 OAuth 认证
    - 认证后，可以设置当前项目上下文
-   - 使用 `mcp_zion_get_project_schema` 获取项目的最新 Schema
 
-3. **使用 MCP 功能**：
+3. **MCP 服务器提供的工具**：
+   - `mcp_zion_set_current_working_directory` - 设置当前工作目录
    - `mcp_zion_get_projects` - 列出所有项目
    - `mcp_zion_set_current_project` - 设置当前项目
+   - `mcp_zion_get_current_project` - 获取当前项目上下文
    - `mcp_zion_get_project_schema` - 获取项目 Schema
+   - `mcp_zion_reauth` - 重新进行 OAuth 认证
 
 ### 步骤 3: 复制规则到项目
 
@@ -91,11 +93,11 @@ cp *.mdc /path/to/your/project/.cursor/rules/
 
 ### 步骤 4: 开始构建
 
-现在你可以使用 AI 助手来构建应用了！
+现在你可以使用 AI Coding 工具来构建应用了！
 
 **示例提示**：
 ```
-使用 Zion 后端规则，创建一个 Next.js 博客应用，项目 ID 是 abc91xyY
+连接 Zion 平台后端，创建一个博客应用，项目 ID 是 xxxx
 ```
 
 AI 助手将：
@@ -240,7 +242,7 @@ query GetPostsWithAuthors($limit: Int) {
 
 ### 示例 1: 使用 AI 助手构建博客
 
-**你**："基于 Zion 项目后端创建一个 WEB引用，项目 exId 是 xxxx"
+**你**："基于 Zion 项目后端创建一个 WEB 应用，项目 exId 是 xxxx"
 
 **AI 将**：
 * 使用 MCP 获取项目 Schema
@@ -362,5 +364,5 @@ const createOrder = async () => {
 
 ---
 
-_最后更新：2025 年 12/04_
+_最后更新：2025年12月05日_
 
