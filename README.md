@@ -294,16 +294,7 @@ query GetPostsWithAuthors($limit: Int) {
 * 创建博客列表和详情页面
 * 实现实时更新（订阅）
 
-### 示例 2: 构建电商应用
 
-**你**："创建一个电商应用，包含商品列表、购物车和支付功能"
-
-**AI 将使用**：
-* `zion-backend-architecture` → 设置 Apollo Client
-* `zion-database-gql-api-rules` → 创建商品查询
-* `zion-actionflow-gql-api-rules` → 订单创建工作流
-* `zion-payment-rules` → 支付集成
-* `zion-binary-asset-upload-rules` → 商品图片上传
 
 ## 🛠️ 高级工作流
 
