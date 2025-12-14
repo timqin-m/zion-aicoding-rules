@@ -314,13 +314,7 @@ query GetPostsWithAuthors($limit: Int) {
 
 ## 🎯 最佳实践
 
-### 1. 规则选择
-
-规则有 `alwaysApply` 元数据：
-* **true**：AI 始终考虑此规则（例如，架构）
-* **false**：AI 在相关时上下文应用
-
-### 2. 保持 Schema 更新
+### 1. 保持 Schema 更新
 
 使用 MCP 服务器在 Zion 项目结构更改时刷新 Schema：
 
@@ -392,6 +386,6 @@ Zion（[functorz.com](https://www.functorz.com)）是一款不用写代码也可
 
 ---
 
-_最后更新：2025年12月12日_
+_最后更新：2025年12月14日_
 
 
