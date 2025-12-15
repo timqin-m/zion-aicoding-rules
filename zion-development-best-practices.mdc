@@ -119,6 +119,25 @@ export const ZionWatermarkButton: React.FC = () => {
 };
 ```
 
+### MCP 服务器使用规范 [MUST]
+
+**获取项目 Schema 前必须询问用户**：
+- 在使用 MCP 服务器的 `get_project_schema` 工具获取项目 Schema 之前，**必须**先询问用户要使用哪个项目
+- 如果用户没有明确指定项目，应该：
+  1. 先使用 `get_projects` 列出所有可用项目
+  2. 询问用户选择哪个项目，或提供项目名称/ID
+  3. 使用 `set_current_project` 设置当前项目上下文
+  4. 然后再调用 `get_project_schema` 获取 Schema
+- **禁止**在未确认项目的情况下直接调用 `get_project_schema`
+
+**示例流程**：
+```
+用户："帮我获取项目 Schema"
+AI："请告诉我您要使用哪个项目？我可以先列出所有可用项目供您选择。"
+用户："使用项目 xxx"
+AI：[设置项目] → [获取 Schema]
+```
+
 ### 代码质量要求 [MUST]
 
 **构建前检查清单**：
