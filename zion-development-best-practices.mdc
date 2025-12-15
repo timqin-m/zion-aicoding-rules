@@ -11,11 +11,59 @@ alwaysApply: true
 
 ## 项目开发要求
 
+### 依赖管理
+
 - 使用 npm 安装依赖时：
   - 添加 `--verbose` 标志查看详细安装日志（`npm install --verbose`）
   - 在 package.json 中指定精确版本号（如 "18.2.0"），不使用 ^ 或 ~ 前缀
   - 避免使用 `npm update` 自动升级依赖
-- **严格遵循** TypeScript 编码标准，必须使用TypeScript 4.9.5
+  - 在 `package-lock.json` 中锁定依赖版本，确保本地构建和部署环境使用相同的依赖版本
+
+### TypeScript 配置要求 [MUST]
+
+- **严格遵循** TypeScript 编码标准，必须使用 TypeScript 4.9.5
+- **模块解析配置**：必须使用 `moduleResolution: "node"`（TypeScript 4.9.5 不支持 `bundler`）
+- **必需配置项**：
+  - `esModuleInterop: true`
+  - `allowSyntheticDefaultImports: true`
+  - `strict: true`
+  - `noUnusedLocals: true`
+  - `noUnusedParameters: true`
+  - `noFallthroughCasesInSwitch: true`
+
+**标准 tsconfig.json 配置**：
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
+```
+
+**必需配置文件**：
+- `tsconfig.json` - TypeScript 编译配置
+- `tsconfig.node.json` - Node.js 环境的 TypeScript 配置（用于 `vite.config.ts`）
+- `vite.config.ts` - Vite 构建工具配置
+
+### 代码规范
+
 - **状态管理**: 遵循React状态提升原则，避免多个组件重复调用同一Hook
 - 错误处理：使用多种方式显示错误信息（message + 页面内错误提示）
 - 页面 title 基于系统场景进行设置，页面的favicon 使用表情符号进行完善
@@ -71,13 +119,75 @@ export const ZionWatermarkButton: React.FC = () => {
 };
 ```
 
-### 代码质量要求
-- 所有变量和导入必须被使用，处理 Apollo Client 类型兼容性问题，使用正确的类型定义
+### 代码质量要求 [MUST]
+
+**构建前检查清单**：
+- ✅ 所有导入的变量和函数必须被使用
+- ✅ 所有 TypeScript 类型错误必须修复
+- ✅ 不能有未使用的 styled-components 定义
+- ✅ 不能有未使用的状态变量
+- ✅ 不能使用 `process.env` 而不安装 `@types/node`（推荐直接移除相关代码）
+- ✅ 处理 Apollo Client 类型兼容性问题，使用正确的类型定义
+
+**常见错误修复**：
+1. **未使用的导入**：移除或使用下划线前缀（如 `const [, setState] = useState()`）
+2. **未使用的 styled-components**：删除未使用的样式定义
+3. **类型错误**：确保所有函数参数都有类型注解
+4. **`process.env` 未定义**：移除相关代码或使用 Vite 的 `import.meta.env` 替代
+
+**导入路径规范**：
+- 禁止使用文件扩展名
+```typescript
+// ❌ 错误
+import App from './App.tsx'
+
+// ✅ 正确
+import App from './App'
+```
+
+**Styled Components 规范**：
+- 使用 `$` 前缀的 props（Transient Props）不会传递给 DOM
+- 在组件中使用时，传递普通 props（不带 `$`）
+```typescript
+// 定义
+const SkeletonBase = styled.div<{ $width?: string; $height?: string }>`
+  width: ${props => props.$width || '100%'};
+`;
+
+// 使用
+<Skeleton width="48px" height="48px" />  // ✅ 正确
+<Skeleton $width="48px" $height="48px" />  // ❌ 错误
+```
+
+**环境变量处理**：
+- 避免使用 `process.env`，推荐使用 Vite 的 `import.meta.env`
+```typescript
+// ❌ 避免
+if (process.env.NODE_ENV === 'development') { }
+
+// ✅ 推荐（如果确实需要）
+if (import.meta.env.DEV) { }
+```
+
 - **可访问性**：iframe 有 title 属性，图片有 alt 属性，交互元素有清晰说明
 - **代码规范**：通过 ESLint 检查（`npm run lint`），无警告和错误
   - 使用项目默认的 ESLint 配置（基于 Vite React-TS 模板）
   - 必须安装：`@eslint/js`、`typescript-eslint`、`eslint-plugin-react-hooks`
-- **类型安全**：通过 TypeScript 编译检查（`tsc -b`），无类型错误
+- **类型安全**：通过 TypeScript 编译检查（`tsc -b` 或 `npm run build`），无类型错误
+
+### 构建配置
+
+**构建脚本**：
+- `package.json` 中的构建脚本应包含 TypeScript 类型检查：
+```json
+{
+  "scripts": {
+    "build": "tsc && vite build"
+  }
+}
+```
+- 构建流程：先执行 `tsc` 进行类型检查，再执行 `vite build` 进行生产环境构建
+- 部署前必须确保本地 `npm run build` 成功执行
 
 ### Apollo Client 配置
 
@@ -91,6 +201,28 @@ export const ZionWatermarkButton: React.FC = () => {
 2. 将使用 useQuery/useMutation 的组件放在 Provider 内部
 3. 避免在 Provider 外部使用任何 GraphQL hooks
 4. 使用组件分离模式：Provider 包装器 + 业务组件
+
+### 常见问题排查 [REFERENCE]
+
+#### TypeScript 编译错误
+
+**问题 1: `Cannot find name 'process'`**
+- **原因**：使用了 `process.env` 但没有类型定义
+- **解决**：移除相关代码（推荐）或安装 `@types/node`：`npm i --save-dev @types/node`
+
+**问题 2: `Module resolution error`**
+- **原因**：TypeScript 配置中的 `moduleResolution` 不兼容
+- **解决**：使用 `"moduleResolution": "node"` 而不是 `"bundler"`（TypeScript 4.9.5 要求）
+
+**问题 3: `Unused variable/import`**
+- **原因**：TypeScript 严格模式要求所有变量都被使用
+- **解决**：
+  - 移除未使用的变量
+  - 或使用下划线前缀：`const [, setState] = useState()`
+
+**问题 4: `Missing tsconfig.json`**
+- **原因**：配置文件被删除或未提交到版本控制
+- **解决**：确保所有必需的配置文件（`tsconfig.json`、`tsconfig.node.json`、`vite.config.ts`）都在版本控制中
 
 ---
 

@@ -1,0 +1,184 @@
+---
+description: Zeabur 平台部署规范和最佳实践
+alwaysApply: false
+---
+
+# Zeabur 部署规范
+
+本文档总结了在 Zeabur 平台上部署 React + TypeScript + Vite 项目的最佳实践和注意事项。
+
+## 核心要求
+
+### 1. 必需配置文件 [MUST]
+
+项目必须包含以下配置文件，否则构建会失败：
+
+- **`tsconfig.json`**: TypeScript 编译配置
+- **`tsconfig.node.json`**: Node.js 环境的 TypeScript 配置（用于 `vite.config.ts`）
+- **`vite.config.ts`**: Vite 构建工具配置
+- **`package.json`**: 项目依赖和脚本配置
+
+### 2. TypeScript 配置要求 [MUST]
+
+**兼容性要求**：
+- 如果使用 TypeScript 4.9.5，必须使用 `moduleResolution: "node"`（不支持 `bundler`）
+- 必须包含 `esModuleInterop: true` 和 `allowSyntheticDefaultImports: true`
+
+**标准配置示例**：
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
+```
+
+### 3. 代码质量要求 [MUST]
+
+**构建前检查清单**：
+- ✅ 所有导入的变量和函数必须被使用
+- ✅ 所有 TypeScript 类型错误必须修复
+- ✅ 不能有未使用的 styled-components 定义
+- ✅ 不能有未使用的状态变量
+- ✅ 不能使用 `process.env` 而不安装 `@types/node`（或移除相关代码）
+
+**常见错误修复**：
+1. **未使用的导入**：移除或使用下划线前缀（如 `const [, setState] = useState()`）
+2. **未使用的 styled-components**：删除未使用的样式定义
+3. **类型错误**：确保所有函数参数都有类型注解
+4. **`process.env` 未定义**：移除相关代码或安装 `@types/node`
+
+### 4. 导入路径规范 [MUST]
+
+**禁止使用文件扩展名**：
+```typescript
+// ❌ 错误
+import App from './App.tsx'
+
+// ✅ 正确
+import App from './App'
+```
+
+### 5. Styled Components 规范 [MUST]
+
+**Transient Props 使用**：
+- 使用 `$` 前缀的 props 不会传递给 DOM
+- 在组件中使用时，传递普通 props（不带 `$`）
+
+```typescript
+// 定义
+const SkeletonBase = styled.div<{ $width?: string; $height?: string }>`
+  width: ${props => props.$width || '100%'};
+`;
+
+// 使用
+<Skeleton width="48px" height="48px" />  // ✅ 正确
+<Skeleton $width="48px" $height="48px" />  // ❌ 错误
+```
+
+### 6. 构建脚本配置 [MUST]
+
+**package.json 中的构建脚本**：
+```json
+{
+  "scripts": {
+    "build": "tsc && vite build"
+  }
+}
+```
+
+**构建流程**：
+1. `tsc` - TypeScript 类型检查（必须通过）
+2. `vite build` - 生产环境构建
+
+### 7. 环境变量处理 [SHOULD]
+
+**避免使用 `process.env`**：
+- 如果不需要，直接移除相关代码
+- 如果需要，使用 Vite 的 `import.meta.env` 替代：
+  ```typescript
+  // ❌ 避免
+  if (process.env.NODE_ENV === 'development') { }
+  
+  // ✅ 推荐（如果确实需要）
+  if (import.meta.env.DEV) { }
+  ```
+
+### 8. 依赖版本锁定 [SHOULD]
+
+**推荐做法**：
+- 使用精确版本号（不使用 `^` 或 `~`）
+- 在 `package-lock.json` 中锁定依赖版本
+- 确保本地构建和 Zeabur 构建使用相同的依赖版本
+
+### 9. 构建输出检查 [SHOULD]
+
+**构建成功后检查**：
+- 确认 `dist/` 目录已生成
+- 检查构建输出中的警告（如 chunk 大小警告）
+- 验证静态资源路径正确
+
+### 10. 常见问题排查 [REFERENCE]
+
+#### 问题 1: `Cannot find name 'process'`
+**原因**：使用了 `process.env` 但没有类型定义
+**解决**：
+- 移除相关代码（推荐）
+- 或安装 `@types/node`：`npm i --save-dev @types/node`
+
+#### 问题 2: `Module resolution error`
+**原因**：TypeScript 配置中的 `moduleResolution` 不兼容
+**解决**：使用 `"moduleResolution": "node"` 而不是 `"bundler"`
+
+#### 问题 3: `Unused variable/import`
+**原因**：TypeScript 严格模式要求所有变量都被使用
+**解决**：
+- 移除未使用的变量
+- 或使用下划线前缀：`const [, setState] = useState()`
+
+#### 问题 4: `Missing tsconfig.json`
+**原因**：配置文件被删除或未提交到版本控制
+**解决**：确保所有配置文件都在版本控制中
+
+## 部署前检查清单
+
+在推送到 Zeabur 之前，请确保：
+
+- [ ] 本地 `npm run build` 成功执行
+- [ ] 没有 TypeScript 编译错误
+- [ ] 没有未使用的导入和变量
+- [ ] 所有必需的配置文件都存在
+- [ ] `package.json` 中的依赖版本已锁定
+- [ ] 没有使用 `process.env`（或已正确处理）
+- [ ] 导入路径不包含文件扩展名
+
+## 最佳实践总结
+
+1. **保持代码简洁**：移除所有未使用的代码和导入
+2. **类型安全**：确保所有 TypeScript 类型错误都已修复
+3. **配置完整**：确保所有必需的配置文件都存在
+4. **本地验证**：在推送到 Zeabur 之前，本地构建必须成功
+5. **版本锁定**：使用精确的依赖版本，避免构建环境差异
+
+## 参考
+
+- [Vite 构建配置](https://vitejs.dev/config/)
+- [TypeScript 编译选项](https://www.typescriptlang.org/tsconfig)
+- [Zeabur 部署文档](https://zeabur.com/docs)
