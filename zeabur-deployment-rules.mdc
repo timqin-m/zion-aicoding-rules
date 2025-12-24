@@ -1,8 +1,6 @@
 ---
-description: Zeabur 平台部署规范和最佳实践
-alwaysApply: false
+alwaysApply: true
 ---
-
 # Zeabur 部署规范
 
 本文档总结了在 Zeabur 平台上部署 React + TypeScript + Vite 项目的最佳实践和注意事项。
