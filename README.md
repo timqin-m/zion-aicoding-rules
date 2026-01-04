@@ -16,7 +16,7 @@
 6. **处理支付** - 支付宝、微信支付等国内支付方式集成
 7. **管理二进制资源** - 图片/文件上传和管理
 8. **获取项目 Schema** - MCP 服务器集成，实时访问 schema
-9. **UI 设计规范** - 基于 Apple 设计风格的 React UI 设计规则
+9. **UI 设计规范** - 基于有机/自然设计风格（Organic/Natural）的 React UI 设计规则
 10. **Zeabur 部署规范** - 在 Zeabur 平台部署 React + TypeScript + Vite 项目的最佳实践
 
 ## 📦 包含的规则文件
@@ -33,7 +33,7 @@ zion-aicoding-rules/
 ├── zion-payment-rules.mdc                # 支付处理（支付宝、微信支付等）
 ├── zion-binary-asset-upload-rules.mdc    # 文件管理
 ├── zion-development-best-practices.mdc   # 开发最佳实践
-├── ui-design-rules.mdc                   # UI 设计规范（Apple 风格）
+├── ui-design-rules.mdc                   # UI 设计规范（有机/自然风格）
 └── zeabur-deployment-rules.mdc           # Zeabur 平台部署规范
 ```
 
@@ -248,18 +248,22 @@ query GetPostsWithAuthors($limit: Int) {
 
 **用途**：React 项目 UI 设计规则和 AI 执行规范  
 **教 AI**：
-* 基于 Apple 设计风格（Human Interface Guidelines）
-* 颜色系统、间距系统、圆角系统
+* 基于有机/自然设计风格（Organic/Natural），强调 wabi-sabi 美学
+* 大地色调调色板（苔藓绿、赤陶土、米白色等）
+* 有机形状和 blob 设计，拒绝 90 度直角
+* 彩色阴影系统（苔藓绿、粘土橙色调）
+* 自然纹理叠加和纸张质感
 * 卡片设计、按钮设计、输入框设计
 * 动画规则和性能优化
-* 排版规则和响应式设计
+* 排版规则（Fraunces + Nunito/Quicksand）和响应式设计
 
 **设计风格**：
-* 毛玻璃效果（Frosted Glass）和深度层次
-* 柔和的阴影和微妙的视觉反馈
-* 流畅自然的动画过渡
-* 系统化、语义化的颜色体系
-* 充足的留白和清晰的层次结构
+* wabi-sabi 美学：接受不完美，追求真实和自然
+* 有机形状：软质 blob 形状，复杂的百分比 border-radius
+* 自然纹理：全局颗粒纹理叠加（3-4% 不透明度）
+* 温暖质感：触感、接地、平静的视觉体验
+* 彩色阴影：柔和阴影带自然色彩色调，禁止纯黑色
+* 不对称设计：通过旋转图像、偏移元素创造有机真实感
 
 ### 10. `zeabur-deployment-rules`
 
