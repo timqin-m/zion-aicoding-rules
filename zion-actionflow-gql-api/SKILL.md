@@ -1,5 +1,5 @@
 ---
-description: How to interact with complex / multi-step backend logic using actionflows in zion-app.functorz.com's backend. 
+description: Execute complex multi-step backend workflows via Actionflows in Zion.app. Use when: (1) Calling Actionflows via GraphQL, (2) Handling synchronous vs asynchronous workflows, (3) Polling async Actionflow status, (4) Passing complex parameters (Json type), (5) Processing multi-step business logic, (6) Handling long-running operations 
 alwaysApply: false
 ---
 

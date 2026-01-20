@@ -1,5 +1,5 @@
 ---
-description: 微信小程序与 Zion.app 后端集成的特有规则和最佳实践
+description: WeChat Mini Program integration with Zion.app backend. Use when: (1) Developing WeChat Mini Programs, (2) Using CommonJS module system (require/module.exports), (3) Making GraphQL requests via wx.request, (4) Handling Mini Program file structure (.wxml, .wxss, .wxs, .js), (5) Integrating authentication, (6) Uploading files to Zion storage
 alwaysApply: false
 applyToFiles:
   - "**/miniprogram/**"

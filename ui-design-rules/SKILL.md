@@ -1,5 +1,5 @@
 ---
-description: React项目UI设计规则和AI执行规范，基于有机/自然设计风格（Organic/Natural），强调wabi-sabi美学、温暖质感和自然连接
+description: React UI design rules based on Organic/Natural style with wabi-sabi aesthetics. Use when: (1) Building React components with Tailwind CSS, (2) Creating organic blob shapes and natural textures, (3) Using earth-tone color palette, (4) Implementing colored shadows (moss green/clay orange), (5) Designing cards, buttons, inputs with organic style, (6) Following responsive design patterns
 alwaysApply: true
 ---
 
@@ -19,7 +19,7 @@ alwaysApply: true
 ## React技术栈 [MUST]
 
 - **框架**: React（函数组件 + Hooks）
-- **样式方案**: Tailwind CSS（推荐）或 styled-components
+- **样式方案**: Tailwind CSS（使用3.4.0）或 styled-components
 - **组件库**: shadcn/ui（复杂组件，需覆盖样式以符合有机风格）
 - **规则**: 优先使用Tailwind CSS工具类，有机形状使用内联样式
 
