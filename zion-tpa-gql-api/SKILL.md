@@ -1,5 +1,5 @@
 ---
-description: Invoke third-party APIs through Zion.app backend relay. Use when: (1) Calling external APIs without CORS issues, (2) Using imported OpenAPI definitions, (3) Managing API credentials securely on server-side, (4) Handling rate limiting and error responses, (5) Logging API requests/responses
+description: "Invoke third-party APIs through Zion.app backend relay. Use when: (1) Calling external APIs without CORS issues, (2) Using imported OpenAPI definitions, (3) Managing API credentials securely on server-side, (4) Handling rate limiting and error responses, (5) Logging API requests/responses"
 alwaysApply: false
 ---
 # Third Party APIs

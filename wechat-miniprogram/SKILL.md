@@ -1,5 +1,5 @@
 ---
-description: WeChat Mini Program integration with Zion.app backend. Use when: (1) Developing WeChat Mini Programs, (2) Using CommonJS module system (require/module.exports), (3) Making GraphQL requests via wx.request, (4) Handling Mini Program file structure (.wxml, .wxss, .wxs, .js), (5) Integrating authentication, (6) Uploading files to Zion storage
+description: "WeChat Mini Program integration with Zion.app backend. Use when: (1) Developing WeChat Mini Programs, (2) Using CommonJS module system (require/module.exports), (3) Making GraphQL requests via wx.request, (4) Handling Mini Program file structure (.wxml, .wxss, .wxs, .js), (5) Integrating authentication, (6) Uploading files to Zion storage"
 alwaysApply: false
 applyToFiles:
   - "**/miniprogram/**"

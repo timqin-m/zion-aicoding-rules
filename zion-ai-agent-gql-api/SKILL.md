@@ -1,5 +1,5 @@
 ---
-description: Interact with Zion.app AI Agents for RAG, tool use, and multi-modal I/O. Use when: (1) Creating and managing AI Agents, (2) Using RAG (retrieval-augmented generation), (3) Tool use / function calling, (4) Multi-modal input/output (text/image/audio), (5) Structured JSON output, (6) Streaming responses
+description: "Interact with Zion.app AI Agents for RAG, tool use, and multi-modal I/O. Use when: (1) Creating and managing AI Agents, (2) Using RAG (retrieval-augmented generation), (3) Tool use / function calling, (4) Multi-modal input/output (text/image/audio), (5) Structured JSON output, (6) Streaming responses"
 alwaysApply: false
 ---
 

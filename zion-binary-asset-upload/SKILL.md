@@ -1,5 +1,5 @@
 ---
-description: Upload and manage binary assets (images, videos, files) with Zion.app backend. Use when: (1) Uploading files to Zion storage, (2) Getting CDN URLs for media, (3) Optimizing and converting images, (4) Managing file metadata, (5) Controlling resource access permissions
+description: "Upload and manage binary assets (images, videos, files) with Zion.app backend. Use when: (1) Uploading files to Zion storage, (2) Getting CDN URLs for media, (3) Optimizing and converting images, (4) Managing file metadata, (5) Controlling resource access permissions"
 alwaysApply: false
 ---
 # Zion.app: Binary Asset Upload Protocol

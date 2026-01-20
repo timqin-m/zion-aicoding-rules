@@ -1,5 +1,5 @@
 ---
-description: WeChat Pay integration in Mini Programs via Zion backend. Use when: (1) Creating payment orders in Mini Programs, (2) Getting WeChat Pay parameters via GraphQL, (3) Calling wx.requestPayment API, (4) Querying payment status after completion, (5) Handling payment errors and retries, (6) Configuring order tables in Zion editor
+description: "WeChat Pay integration in Mini Programs via Zion backend. Use when: (1) Creating payment orders in Mini Programs, (2) Getting WeChat Pay parameters via GraphQL, (3) Calling wx.requestPayment API, (4) Querying payment status after completion, (5) Handling payment errors and retries, (6) Configuring order tables in Zion editor"
 alwaysApply: false
 applyToFiles:
   - "**/miniprogram/**"

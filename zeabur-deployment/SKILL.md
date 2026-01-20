@@ -1,5 +1,5 @@
 ---
-description: Zeabur platform deployment rules and best practices for React + TypeScript + Vite projects. Use when: (1) Deploying to Zeabur platform, (2) Configuring required files (tsconfig.json, vite.config.ts), (3) Setting up TypeScript 4.9.5 compatibility, (4) Configuring SPA routing (React Router), (5) Troubleshooting deployment issues (502 errors, host restrictions)
+description: "Zeabur platform deployment rules and best practices for React + TypeScript + Vite projects. Use when: (1) Deploying to Zeabur platform, (2) Configuring required files (tsconfig.json, vite.config.ts), (3) Setting up TypeScript 4.9.5 compatibility, (4) Configuring SPA routing (React Router), (5) Troubleshooting deployment issues (502 errors, host restrictions)"
 alwaysApply: true
 ---
 # Zeabur 部署规范

@@ -1,5 +1,5 @@
 ---
-description: Zion.app database operations via auto-generated GraphQL schema. Use when: (1) Querying or mutating database records, (2) Working with relationships (1:1, 1:N, N:N), (3) Filtering, sorting, paginating data, (4) Understanding how tables map to GraphQL types, (5) Using aggregate functions, (6) Handling media assets (images/files)
+description: "Zion.app database operations via auto-generated GraphQL schema. Use when: (1) Querying or mutating database records, (2) Working with relationships (1:1, 1:N, N:N), (3) Filtering, sorting, paginating data, (4) Understanding how tables map to GraphQL types, (5) Using aggregate functions, (6) Handling media assets (images/files)"
 alwaysApply: false
 ---
 

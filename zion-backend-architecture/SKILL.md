@@ -1,5 +1,5 @@
 ---
-description: Zion.app backend architecture and GraphQL API setup for headless BaaS integration. Use when: (1) Setting up Apollo Client or GraphQL client for Zion backend, (2) Configuring authentication (email/phone/username), (3) Establishing WebSocket connections for subscriptions, (4) Understanding Zion's GraphQL endpoint structure, (5) Working with JWT tokens and permission roles
+description: "Zion.app backend architecture and GraphQL API setup for headless BaaS integration. Use when: (1) Setting up Apollo Client or GraphQL client for Zion backend, (2) Configuring authentication (email/phone/username), (3) Establishing WebSocket connections for subscriptions, (4) Understanding Zion's GraphQL endpoint structure, (5) Working with JWT tokens and permission roles"
 alwaysApply: true
 ---
 # Zion.app

@@ -1,5 +1,5 @@
 ---
-description: Payment processing via Zion backend (Alipay, WeChat Pay, etc.). Use when: (1) Creating payment orders, (2) Processing one-time payments, (3) Managing subscriptions, (4) Handling payment webhooks, (5) Tracking order status, (6) Integrating payment UI
+description: "Payment processing via Zion backend (Alipay, WeChat Pay, etc.). Use when: (1) Creating payment orders, (2) Processing one-time payments, (3) Managing subscriptions, (4) Handling payment webhooks, (5) Tracking order status, (6) Integrating payment UI"
 alwaysApply: false
 ---
 

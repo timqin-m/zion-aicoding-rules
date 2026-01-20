@@ -1,5 +1,5 @@
 ---
-description: React UI design rules based on Organic/Natural style with wabi-sabi aesthetics. Use when: (1) Building React components with Tailwind CSS, (2) Creating organic blob shapes and natural textures, (3) Using earth-tone color palette, (4) Implementing colored shadows (moss green/clay orange), (5) Designing cards, buttons, inputs with organic style, (6) Following responsive design patterns
+description: "React UI design rules based on Organic/Natural style with wabi-sabi aesthetics. Use when: (1) Building React components with Tailwind CSS, (2) Creating organic blob shapes and natural textures, (3) Using earth-tone color palette, (4) Implementing colored shadows (moss green/clay orange), (5) Designing cards, buttons, inputs with organic style, (6) Following responsive design patterns"
 alwaysApply: true
 ---
 

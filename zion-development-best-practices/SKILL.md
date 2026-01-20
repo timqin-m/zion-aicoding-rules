@@ -1,5 +1,5 @@
 ---
-description: Zion development best practices and security guidelines. Use when: (1) Setting up TypeScript/React projects, (2) Configuring Apollo Client, (3) Making architectural decisions (GraphQL CRUD vs Actionflow), (4) Implementing authentication flows, (5) Following code quality standards, (6) Handling sensitive operations securely
+description: "Zion development best practices and security guidelines. Use when: (1) Setting up TypeScript/React projects, (2) Configuring Apollo Client, (3) Making architectural decisions (GraphQL CRUD vs Actionflow), (4) Implementing authentication flows, (5) Following code quality standards, (6) Handling sensitive operations securely"
 alwaysApply: true
 ---
 
