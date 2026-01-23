@@ -6,6 +6,44 @@
 
 > **注意**：本仓库适用于 Cursor 2.3.41 及以上版本，使用新的 Skills 系统（`.cursor/skills/` 目录结构）。
 
+## 🎯 推荐使用方式：整合 Skill
+
+为了简化安装和使用，我们提供了一个**整合的 Skill**，将所有 12 个独立的 skills 合并为一个统一的 skill：
+
+### 使用整合 Skill（推荐）
+
+**安装方式**：
+```bash
+# 通过 skill.sh 安装（推荐）
+npx skills add <your-username>/zion-backend-connect-skills
+
+# 或手动安装：将 zion-backend-connect-skills 目录复制到项目的 .cursor/skills/ 目录
+```
+
+**优势**：
+- ✅ 只需安装一个 skill，而不是 12 个
+- ✅ 所有功能整合在一个文档中，便于查找
+- ✅ 减少技能目录的复杂性
+- ✅ 更好的上下文管理
+
+**整合 Skill 包含的内容**：
+- Zion 后端架构和 GraphQL 设置
+- 数据库操作（CRUD、关系、过滤、排序）
+- Actionflows（同步和异步工作流）
+- 第三方 API 集成
+- AI Agents（RAG、工具使用、多模态 I/O）
+- 支付处理（支付宝、微信支付）
+- 二进制资源上传（图片、视频、文件）
+- 开发最佳实践（TypeScript、Apollo Client、安全规范）
+- UI 设计规则（有机/自然风格）
+- Zeabur 部署规范
+- 微信小程序开发
+- 微信小程序支付
+
+### 使用独立 Skills（可选）
+
+如果你只需要部分功能，也可以单独安装各个 skills。详见下面的详细说明。
+
 ## 🎯 本仓库提供的内容
 
 本仓库包含 **12 个专业 Skills 文件**：
@@ -23,9 +61,46 @@
 11. **微信小程序开发** - 微信小程序与 Zion 后端集成的特有规则和最佳实践
 12. **微信小程序支付** - 微信小程序中使用 Zion 后端进行微信支付的方法
 
+## 📤 上传到 skill.sh
+
+要将整合的 skill 上传到 [skill.sh](https://skills.sh) 平台：
+
+1. **确保整合 Skill 已创建**：
+   - 整合的 skill 位于 `zion-backend-connect-skills/SKILL.md`
+   - 包含完整的 YAML frontmatter（`name` 和 `description` 字段）
+
+2. **推送到 GitHub**：
+   ```bash
+   git add zion-backend-connect-skills/
+   git commit -m "Add integrated zion-backend-connect-skills"
+   git push origin main
+   ```
+
+3. **在 skill.sh 上安装**：
+   - 用户可以通过以下命令安装：
+   ```bash
+   npx skills add <your-username>/zion-backend-connect-skills
+   ```
+   - 或者通过 GitHub 仓库 URL 安装
+
+4. **自动出现在排行榜**：
+   - 一旦有用户通过 `npx skills add` 安装，skill 会自动出现在 skill.sh 的排行榜上
+   - 排行榜基于匿名安装数据排序
+
 ## 📦 包含的 Skills 文件
 
-本仓库包含 **12 个 Skills 文件**，均为 `SKILL.md` 格式（Markdown with YAML frontmatter），每个 Skill 位于独立的目录中：
+本仓库包含 **12 个独立的 Skills 文件**和一个**整合的 Skill**，均为 `SKILL.md` 格式（Markdown with YAML frontmatter）：
+
+### 整合 Skill（推荐）
+
+```
+zion-backend-connect-skills/
+└── SKILL.md                          # 整合所有 12 个 skills 的完整指南
+```
+
+### 独立 Skills（可选）
+
+每个 Skill 位于独立的目录中：
 
 ```
 zion-aicoding-rules/
